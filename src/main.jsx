@@ -2,12 +2,15 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, createRoutesFromElements, Navigate, Route, RouterProvider } from 'react-router-dom'
 import Layout from './layout/Layout.jsx'
 import About from './components/About/About.jsx'
 import Home from './components/Home/Home.jsx'
 import Contact from './components/Contact/Contact.jsx'
 import Params from './components/User/Params.jsx'
+import PageNotFound from './components/NoFound/PageNotFound.jsx'
+import Users from './components/User/Users.jsx'
+import Positions from './components/User/Positions.jsx'
 
 // 2nd Way for react routing 
 // const router = createBrowserRouter([
@@ -38,7 +41,13 @@ const router = createBrowserRouter(
       <Route path='' element={<Home />} />
       <Route path='about' element={<About />} />
       <Route path='contact' element={<Contact />} />
-      <Route path='param/:id' element={<Params />} />
+      <Route path='employee/:id' element={<Params />} />
+      <Route path='*' element={<PageNotFound />} />
+      <Route path='employees' element={<Users />} />
+      <Route path='position/:position' element={<Positions />} />
+      {/* <Route path='*' element={<Home />} /> */}
+      {/* OR  */}
+      {/* <Route path='*' element={<Navigate to="/about" />} /> */}
     </Route>
   )
 )
