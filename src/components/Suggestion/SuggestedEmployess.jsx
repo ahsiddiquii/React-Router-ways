@@ -9,18 +9,20 @@ const SuggestedEmployees = () => {
 
     // Filter suggested employees with the same position
     const suggestedEmployees = User.filter(employee => employee.position === currentEmployee.position && employee.id !== currentEmployee.id);
-    
+
     return (
         <div className="container mx-auto px-4 py-8">
-            {suggestedEmployees && suggestedEmployees.length > 0 ? 
-                <h2 className="text-2xl text-gray-800 mb-4">More {currentEmployee.position}</h2> 
+            {suggestedEmployees && suggestedEmployees.length > 0 ?
+                <h2 className="text-2xl text-gray-800 mb-4">More {currentEmployee.position}</h2>
                 : ""}
 
             {/* Flex container for horizontal scroll */}
             <div className="flex overflow-x-auto pb-4">
                 {suggestedEmployees.length > 0 ? (
                     suggestedEmployees.map(employee => (
-                        <NavLink to={`/employee/${employee.id}`} key={employee.id}>
+
+                        <NavLink to={`/employee/${employee.position.includes(" ") ?
+                            employee.position.replace(/\s+/g, "") : employee.position}/${employee.id}`} key={employee.id}>
                             <div className="bg-white shadow-md rounded-lg overflow-hidden transition-transform transform hover:scale-105 mx-4" style={{ width: '150px', height: '190px' }}> {/* Increased horizontal margin to mx-4 */}
                                 <img
                                     src={employee.imageUrl}

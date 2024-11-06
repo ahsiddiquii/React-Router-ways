@@ -13,6 +13,7 @@ const Users = () => {
         imageUrl: "",
     });
 
+    
 
     const handleChange = (e) => {
 
@@ -58,9 +59,11 @@ const Users = () => {
         setIsOpen(!isOpen);
     };
 
-    const handleDelete = (event) => {
-        event.stopPropagation();
+    const handleDelete = (index) => {
+        console.log(index);
     }
+
+    
 
     return (
         <div className="container mx-auto px-4 py-8">
@@ -75,9 +78,11 @@ const Users = () => {
                     Add Employee
                 </button>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {User.map((employee, index) => (
-                    <NavLink to={`/employee/${employee.id}`} key={employee.id}>
+                    <NavLink to={`/employee/${employee.position.includes(" ") ?
+                        employee.position.replace(/\s+/g, "") : employee.position}/${employee.id}`} key={employee.id}>
                         <div className="bg-white shadow-md rounded-lg overflow-hidden transition-transform transform hover:scale-105">
                             <img
                                 src={employee.imageUrl}
@@ -88,6 +93,7 @@ const Users = () => {
                                 <h2 className="text-xl font-semibold bg-orange-700 text-white p-2 rounded-md text-left">
                                     {employee.name}
                                 </h2>
+
                                 <p className="text-gray-600 font-bold mt-2 text-left">Position:</p>
                                 <p className="text-gray-600 mb-2 text-left">{employee.position}</p>
                                 <p className="text-gray-600 font-bold mt-2 text-left">About:</p>
@@ -106,17 +112,81 @@ const Users = () => {
                                 <p className="text-gray-600 font-bold mt-2 text-left">Location:</p>
                                 <p className="text-gray-500 text-left">{employee.location}</p>
                                 <div className="flex justify-end items-center mt-2">
-                                    <button className="bg-gray-600 text-white p-2 rounded w-20 me-3">Edit</button>
-                                    <button onClick={handleDelete} className="bg-orange-700 text-white p-2 rounded w-20">Delete</button>
-                                </div>
+                                <button className="bg-gray-600 text-white p-2 rounded w-20 me-3">Edit</button>
+                                <button onClick={handleDelete} className="bg-orange-700 text-white p-2 rounded w-20">Delete</button>
+                            </div>
 
                             </div>
                         </div>
                     </NavLink>
-
                 ))}
 
+            </div> */}
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {User.map((employee, index) => (
+                    <div
+                        key={employee.id}
+                        className="bg-white shadow-md rounded-lg overflow-hidden"
+                    >
+                        {/* Clickable image with hover effect */}
+                        <NavLink
+                            to={`/employee/${employee.position.includes(" ") ? employee.position.replace(/\s+/g, "") : employee.position}/${employee.id}`}
+                            className="block transition-transform transform hover:scale-105"
+                        >
+                            <img
+                                src={employee.imageUrl}
+                                alt={employee.name}
+                                className="w-full h-48 object-cover cursor-pointer"
+                            />
+                        </NavLink>
+
+                        {/* Content area */}
+                        <div className="p-4 flex flex-col space-y-2">
+                            {/* Clickable name with hover effect */}
+                            <NavLink
+                                to={`/employee/${employee.position.includes(" ") ? employee.position.replace(/\s+/g, "") : employee.position}/${employee.id}`}
+                                className="text-xl font-semibold bg-orange-700 text-white p-2 rounded-md text-left cursor-pointer transition-transform transform hover:scale-105"
+                            >
+                                {employee.name}
+                            </NavLink>
+
+                            <p className="text-gray-600 font-bold mt-2 text-left">Position:</p>
+                            <p className="text-gray-600 mb-2 text-left">{employee.position}</p>
+
+                            <p className="text-gray-600 font-bold mt-2 text-left">About:</p>
+                            <p className="text-gray-500 flex-grow text-left">{employee.about}</p>
+
+                            <h3 className="text-sm font-bold text-gray-700 mt-4 text-left">Skills:</h3>
+                            <div className="flex flex-wrap mt-1 mb-2">
+                                {employee.skills.map((skill, index) => (
+                                    <span
+                                        key={index}
+                                        className="bg-orange-700 text-white text-xs font-semibold px-3 py-1 rounded-full mr-2 mb-2"
+                                    >
+                                        {skill}
+                                    </span>
+                                ))}
+                            </div>
+
+                            <p className="text-gray-600 font-bold mt-2 text-left">Location:</p>
+                            <p className="text-gray-500 text-left">{employee.location}</p>
+
+                            <div className="flex justify-end items-center mt-2 space-x-3">
+                                <button className="bg-gray-600 text-white p-2 rounded w-20">Edit</button>
+                                <button onClick={()=> handleDelete(index)} className="bg-orange-700 text-white p-2 rounded w-20">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                ))}
             </div>
+
+
+
+
+
+
+
 
             {/* Popup Form */}
             {isOpen && (

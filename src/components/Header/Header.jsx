@@ -8,12 +8,12 @@ const Header = () => {
     const uniquePositionObj = {};
     const uniquePositionArr = [];
 
-    User.map(({position}) => {
+    User.map(({ position }) => {
         if (!uniquePositionObj[position]) {
-          uniquePositionObj[position] = true;
-          uniquePositionArr.push(position);
+            uniquePositionObj[position] = true;
+            uniquePositionArr.push(position);
         }
-      });
+    });
 
 
 
@@ -76,12 +76,14 @@ const Header = () => {
                                 </Link>
                                 <div className="absolute bg-white shadow-lg rounded-lg top-full left-0 mt-1 w-40 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none group-hover:pointer-events-auto">
                                     <NavLink to="employees">
-                                       All Employess
+                                        All Employess
                                     </NavLink>
                                     <hr />
                                     {uniquePositionArr.map((val, index) => (
                                         <NavLink
                                             key={index}
+                                            // to={`/position/${val.includes(" ") ?
+                                            //     val.replace(/\s+/g, "") : val}`}
                                             to={`/position/${val}`}
                                             className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
                                         >
